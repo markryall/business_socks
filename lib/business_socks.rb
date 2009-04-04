@@ -1,37 +1,70 @@
 require 'business_socks/event'
 require 'business_socks/fixnum'
 require 'business_socks/schedule'
-require 'date'
+require 'time'
 
-$schedule = BusinessSocks::Schedule.new
-$schedule.events << BusinessSocks::Event.new("first event", 10.minutes)
-$schedule.events << BusinessSocks::Event.new("break", 5.minutes)
-
-Shoes.app(:title => "Scheduler", :height => 200, :width => 300, :resizeable => false) do
-  background "#548898".."#3d6976"
+Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeable => false) do
+  background black
+  @midnight = Time.parse('00:00')
   @state = :not_running
   @start = Time.now.usec
 
   stack :margin => 10 do
-    @timer = title "00:00:00", :align => "center", :stroke => "#a0b8be"
+    @now = para Time.now.strftime('%H:%M:%S'), :size => 210, :align => "center", :stroke => "#a0b8be"
+    @timer = para "", :size => 150, :align => "center", :stroke => "#a0b8be"
+    @description = para "", :size => 100, :align => "center", :stroke => "#a0b8be"
+    @command = title "", :align => "center", :stroke => "#a0b8be"
   end
 
-  stack :margin => 10 do
-    @title = title "current talk", :align => "center", :stroke => "#a0b8be"
+  def change_state new_state
+    debug "state transition from #{@state} to #{new_state}"
+    @state = new_state
   end
 
-  stack :margin => 10 do
-    title @title.methods.sort.join(',')
+  def clear
+    @description.replace ""
+    @timer.replace ""
+    change_state :not_running
   end
 
-  count = 0
   animate(1) do
-    @now = DateTime.now
-    if @state == :not_running 
-      #@current = $schedule.events.shift
-      @state = :running
+    @now.replace Time.now.strftime('%H:%M:%S')
+    case @state
+      when :timing:
+        new_time = @midnight + (Time.now - @start)
+        @timer.replace new_time.strftime('%H:%M:%S')
+      when :schedule:
+        clear unless @schedule.current
+        new_time = @midnight + @schedule.current.remaining
+        @description.replace @schedule.current.description
+        @timer.replace new_time.strftime('%H:%M:%S')
     end
-    count += 1
-    @title.replace count
+  end
+
+  @buffer = ''
+  keypress do |k|
+    case k
+      when 'a'..'z': @buffer << k
+      when 'D': @buffer = ''
+      when :backspace: @buffer = @buffer.slice(0...-1)
+    end
+    case @buffer
+      when 'start':
+        @buffer = ''
+        @start = Time.now
+        change_state :timing
+      when 'stop':
+        @buffer = ''
+        clear
+      when 'load':
+        @buffer = ''
+        if (path = ask_open_file)
+          @schedule = BusinessSocks::Schedule.new
+          @schedule.instance_eval(File.read(path))
+          debug "load schedule with #{@schedule.events.size} events"
+          change_state :schedule
+        end
+    end
+    @command.replace @buffer
   end
 end

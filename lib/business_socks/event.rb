@@ -1,18 +1,17 @@
 module BusinessSocks
-  Event = Struct.new(:description, :duration)
+  Event = Struct.new(:description, :duration, :presenter)
   
   class Event
     def start
-      @start_time = Time.now.usec
-      @finish_time = @start_time + self.duration * 1000
+      @finish_time = Time.now + self.duration
     end
 
     def finished?
-      Time.now.usec > @finish_time
+      Time.now > @finish_time
     end
     
-    def has_started?
-      false
+    def remaining
+      @finish_time - Time.now
     end
   end
 end
