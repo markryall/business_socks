@@ -1,3 +1,0 @@
-event "first event", 10.seconds, "first presenter"
-event "break", 5.seconds
-event "second event", 10.seconds, "second presenter"

@@ -1,0 +1,3 @@
+event "first event", 15.seconds, "first presenter"
+event "break", 6.seconds
+event "second event", 15.seconds, "second presenter"
