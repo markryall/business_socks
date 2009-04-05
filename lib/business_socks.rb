@@ -73,6 +73,12 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
           debug "load schedule with #{@schedule.events.size} events"
           change_state :schedule
         end
+      when 'k':
+        @schedule.current.duration = 1 if @schedule and @schedule.current
+      when '+':
+        @schedule.current.duration += 60 if @schedule and @schedule.current
+      when '-':
+        @schedule.current.duration -= 60 if @schedule and @schedule.current
     end
   end
 end
