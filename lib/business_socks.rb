@@ -10,9 +10,9 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
   @start = Time.now.usec
 
   stack :margin => 10 do
-    @now = para Time.now.strftime('%H:%M:%S'), :size => 210, :align => "center", :stroke => "#a0b8be"
-    @timer = para "", :size => 150, :align => "center", :stroke => "#a0b8be"
-    @description = para "", :size => 100, :align => "center", :stroke => "#a0b8be"
+    @para_time = para Time.now.strftime('%H:%M:%S'), :size => 210, :align => "center", :stroke => "#a0b8be"
+    @para_timer = para "", :stroke => "#a0b8be"
+    @para_description = para "", :size => 50, :align => "center", :stroke => "#a0b8be"
     @command = title "", :align => "center", :stroke => "#a0b8be"
   end
 
@@ -22,22 +22,28 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
   end
 
   def clear
-    @description.replace ""
-    @timer.replace ""
+    @para_description.replace ""
+    @para_timer.replace ""
     change_state :not_running
   end
 
-  animate(1) do
-    @now.replace Time.now.strftime('%H:%M:%S')
+  animate(2) do
+    @para_time.replace Time.now.strftime('%H:%M:%S')
     case @state
       when :timing:
-        new_time = @midnight + (Time.now - @start)
-        @timer.replace new_time.strftime('%H:%M:%S')
+      new_time = @midnight + (Time.now - @start)
+      @para_timer.replace new_time.strftime('%H:%M:%S')
       when :schedule:
-        clear unless @schedule.current
+      if @schedule.current
         new_time = @midnight + @schedule.current.remaining
-        @description.replace @schedule.current.description
-        @timer.replace new_time.strftime('%H:%M:%S')
+        color = yellow
+        color = orange if @schedule.current.remaining < (@schedule.current.duration*2/3)
+        color = red if @schedule.current.remaining < (@schedule.current.duration/3)
+        @para_description.replace strong(@schedule.current.description, :stroke=>gray), strong(@schedule.current.presenter, :stroke=>blue)
+        @para_timer.replace new_time.strftime('%H:%M:%S'), :stroke=>color, :size => 150, :align => "center"
+      else
+        clear
+      end
     end
   end
 
