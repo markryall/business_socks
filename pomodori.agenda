@@ -1,0 +1,4 @@
+(1..3).each do |index|
+  evnet "break", 5.minutes unless index = 1
+  event "pomodoro #{index}", 25.minutes
+end
