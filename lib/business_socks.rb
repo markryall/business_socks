@@ -12,11 +12,11 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
 
   stack :margin => 10 do
     @para_time = para Time.now.strftime('%H:%M'), :size => 210, :align => "center", :stroke => "#a0b8be"
-    @para_timer = para "", :stroke => "#a0b8be"
-    @para_description = para "", :size => 50, :align => "center", :stroke => "#a0b8be"
-    @videos << video('bicycle1.mp3')
-    @videos << video('bicycle2.mp3')
-    @videos << video('bicycle3.mp3')
+    @para_timer = para
+    @para_description = para '', :size => 50, :align => "center"
+    @videos << video('bicycle1.mp3', :height => 1, :width => 1)
+    @videos << video('bicycle2.mp3', :height => 1, :width => 1)
+    @videos << video('bicycle3.mp3', :height => 1, :width => 1)
   end
 
   def change_state new_state
@@ -30,8 +30,12 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
     change_state :not_running
   end
 
-  def stage_transition? properties
-    @old_stage == properties[:from] and @new_stage == properties[:to]
+  def on_stage_transition properties
+    yield if @old_stage == properties[:from] and @new_stage == properties[:to]
+  end
+
+  def set_timer time, color="#a0b8be"
+    @para_timer.replace time.strftime('%H:%M:%S'), :stroke=>color, :size => 150, :align => "center"
   end
 
   colors = [yellow, orange, red]
@@ -41,17 +45,17 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
     case @state
       when :timing:
       new_time = @midnight + (Time.now - @start)
-      @para_timer.replace new_time.strftime('%H:%M:%S')
+      set_timer new_time
       when :schedule:
       if @schedule.current
+        @para_description.replace strong(@schedule.current.description, :stroke=>gray), strong(@schedule.current.presenter, :stroke=>blue)
         new_time = @midnight + @schedule.current.remaining
         @new_stage = @schedule.current.stage(3)
-        @videos[0].play if stage_transition? :from => 0, :to => 1
-        @videos[1].play if stage_transition? :from => 1, :to => 2
-        @videos[2].play if stage_transition? :from => 2, :to => 0
+        on_stage_transition(:from => 0, :to => 1) { @videos[0].play }
+        on_stage_transition(:from => 1, :to => 2) { @videos[1].play }
+        on_stage_transition(:from => 2, :to => 0) { @videos[2].play }
         @old_stage = @new_stage
-        @para_description.replace strong(@schedule.current.description, :stroke=>gray), strong(@schedule.current.presenter, :stroke=>blue)
-        @para_timer.replace new_time.strftime('%H:%M:%S'), :stroke=>colors[@new_stage], :size => 150, :align => "center"
+        set_timer new_time, colors[@new_stage]
       else
         clear
         @videos[2].play
@@ -74,7 +78,9 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
           change_state :schedule
         end
       when 'k':
-        @schedule.current.duration = 1 if @schedule and @schedule.current
+        @schedule.kill_one if @schedule
+      when 'K':
+        @schedule.kill if @schedule
       when '+':
         @schedule.current.duration += 60 if @schedule and @schedule.current
       when '-':
