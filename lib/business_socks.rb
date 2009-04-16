@@ -11,12 +11,12 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
   @videos = []
 
   stack :margin => 10 do
-    @para_time = para Time.now.strftime('%H:%M'), :size => 210, :align => "center", :stroke => "#a0b8be"
-    @para_timer = para
+    @para_timer = para "", :size => 200
+    @para_time = para Time.now.strftime('%H:%M'), :size => 150, :align => "center", :stroke => "#a0b8be"
     @para_description = para '', :size => 50, :align => "center"
     @videos << video('bicycle1.mp3', :height => 1, :width => 1)
     @videos << video('bicycle2.mp3', :height => 1, :width => 1)
-    @videos << video('bicycle3.mp3', :height => 1, :width => 1)
+    @videos << video('foghorn.mp3', :height => 1, :width => 1)
   end
 
   def change_state new_state
@@ -35,7 +35,7 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
   end
 
   def set_timer time, color="#a0b8be"
-    @para_timer.replace time.strftime('%H:%M:%S'), :stroke=>color, :size => 150, :align => "center"
+    @para_timer.replace time.strftime('%H:%M:%S'), :stroke=>color, :size => 200, :align => "center"
   end
 
   colors = [yellow, orange, red]
