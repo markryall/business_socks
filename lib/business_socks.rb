@@ -16,7 +16,7 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
     @para_description = para '', :size => 50, :align => "center"
     @videos << video('bicycle1.mp3', :height => 1, :width => 1)
     @videos << video('bicycle2.mp3', :height => 1, :width => 1)
-    @videos << video('foghorn.mp3', :height => 1, :width => 1)
+    @videos << video('bicycle3.mp3', :height => 1, :width => 1)
   end
 
   def change_state new_state

@@ -1,0 +1,4 @@
+10.times do
+  event "lightning", 6.minutes
+  event "switch", 30.seconds
+end

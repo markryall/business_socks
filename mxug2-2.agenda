@@ -1,0 +1,6 @@
+event "food",15.minutes, "ThoughtWorks"
+event "hadoop", 15.minutes, "mark schnitzius"
+event "lightning talk", 5.minutes
+event "distributed version control", 15.minutes, "duana stanley"
+event "lightning talk", 5.minutes
+event "erlang", 15.minutes, "julian doherty"

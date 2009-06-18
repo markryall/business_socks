@@ -1,0 +1,5 @@
+event "zen, it and permaculture", 15.minutes, "donal o duibhir"
+event "questions", 5.minutes
+event "urban legends of programming", 15.minutes, "tim josling"
+event "questions", 5.minutes
+event "semi-automated deployment/release", 15.minutes, "noon silk"

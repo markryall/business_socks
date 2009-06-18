@@ -1,0 +1,4 @@
+event "lightning talk", 5.minutes, "korny"
+event "lightning talk", 5.minutes, "steve"
+event "lightning talk", 5.minutes, "kathryn"
+event "lightning talk", 5.minutes, "matt"

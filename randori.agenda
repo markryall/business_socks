@@ -1,0 +1,4 @@
+10.times do
+  event "pairing session", 7.minutes
+  event "switch", 15.seconds
+end
