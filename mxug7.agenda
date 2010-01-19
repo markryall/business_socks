@@ -1,0 +1,11 @@
+event "Nick Burton", 15.minutes, "google android"
+event "questions", 5.minutes
+event "Ben Hutchison", 15.minutes, "scala"
+event "questions", 5.minutes 
+event "Rob Caporetto", 15.minutes, "indie development"
+event "questions", 5.minutes
+event "Paul Fenwick", 15.minutes, "Facebook privacy"
+event "questions", 5.minutes
+event "Stephan Dekker", 15.minutes, "show us your build"
+event "questions", 5.minutes
+event "Noon Silk", 15.minutes, "dashy redux"

@@ -1,0 +1,24 @@
+event "geoff burns", 15.minutes, "F#"
+event "questions", 5.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes
+event "lightning talk", 6.minutes
+event "questions", 1.minutes

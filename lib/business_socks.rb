@@ -11,8 +11,8 @@ Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeabl
   @videos = []
 
   stack :margin => 10 do
-    @para_timer = para "", :size => 200
     @para_time = para Time.now.strftime('%H:%M'), :size => 150, :align => "center", :stroke => "#a0b8be"
+    @para_timer = para "", :size => 200
     @para_description = para '', :size => 50, :align => "center"
     @videos << video('bicycle1.mp3', :height => 1, :width => 1)
     @videos << video('bicycle2.mp3', :height => 1, :width => 1)

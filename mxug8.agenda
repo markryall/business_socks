@@ -1,0 +1,6 @@
+event "Steve Hayes", 45.minutes, "agile"
+event "questions", 10.minutes
+event "Sam Watkins", 15.minutes, "Tachyon"
+event "questions", 5.minutes
+event "Alec Clews", 15.minutes, "Fossil SCM"
+event "questions", 5.minutes

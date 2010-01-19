@@ -1,0 +1,8 @@
+event "james vautin", 15.minutes, "amazon mechanical turk"
+event "questions", 5.minutes
+event "evan bottcher", 15.minutes, "REST"
+event "questions", 5.minutes
+event "gareth townsend", 15.minutes, "wordpress on iPhone"
+event "questions", 5.minutes
+event "geoff burns", 15.minutes, "F#"
+event "questions", 5.minutes
