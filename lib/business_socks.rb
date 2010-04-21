@@ -3,7 +3,7 @@ require 'business_socks/fixnum'
 require 'business_socks/schedule'
 require 'time'
 
-Shoes.app(:title => "Business Socks", :height => 800, :width => 1400, :resizeable => false) do
+Shoes.app(:title => "Business Socks", :height => 600, :width => 800, :resizeable => true) do
   background black
   @midnight = Time.parse('00:00')
   @state = :not_running

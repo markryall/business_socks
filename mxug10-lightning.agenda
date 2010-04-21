@@ -1,0 +1,9 @@
+event "Pez", 5.minutes
+event "switch", 30.seconds
+event "Evan", 5.minutes
+event "switch", 30.seconds
+event "Mat", 5.minutes
+event "switch", 30.seconds
+event "Oliver", 5.minutes
+event "switch", 30.seconds
+event "Ryan", 5.minutes

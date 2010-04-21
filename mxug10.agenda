@@ -1,0 +1,6 @@
+event "Justin Freitag", 15.minutes, "Cappuccino"
+event "questions", 5.minutes
+event "Mark Ryall", 15.minutes, "Google Wave Robot"
+event "questions", 5.minutes
+event "Duncan Bayne", 15.minutes, "Clean Feed"
+event "questions", 5.minutes

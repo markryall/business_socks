@@ -1,0 +1,6 @@
+event "Jonathan", 15.minutes, "javascript project"
+event "questions", 5.minutes
+event "Silky", 15.minutes, "code analysis"
+event "questions", 5.minutes
+event "James", 15.minutes, "powershell/bdd"
+event "questions", 5.minutes
