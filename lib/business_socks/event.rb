@@ -1,5 +1,5 @@
 module BusinessSocks
-  Event = Struct.new(:description, :duration, :presenter)
+  Event = Struct.new(:description, :duration, :presenter, :transition)
   
   class Event
     def start

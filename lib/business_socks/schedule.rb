@@ -9,6 +9,10 @@ module BusinessSocks
     def event *args
       self.events << Event.new(*args)
     end
+
+    def questions time
+      self.events << Event.new('questions', time, nil, true)
+    end
     
     def kill_one
       @current = nil

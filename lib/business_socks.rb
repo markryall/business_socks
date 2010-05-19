@@ -1,3 +1,5 @@
+$: << File.dirname(__FILE__)
+
 require 'business_socks/event'
 require 'business_socks/fixnum'
 require 'business_socks/schedule'
@@ -14,9 +16,10 @@ Shoes.app(:title => "Business Socks", :height => 600, :width => 800, :resizeable
     @para_time = para Time.now.strftime('%H:%M'), :size => 150, :align => "center", :stroke => "#a0b8be"
     @para_timer = para "", :size => 200
     @para_description = para '', :size => 50, :align => "center"
-    @videos << video('bicycle1.mp3', :height => 1, :width => 1)
-    @videos << video('bicycle2.mp3', :height => 1, :width => 1)
-    @videos << video('bicycle3.mp3', :height => 1, :width => 1)
+    @base_path = File.dirname(__FILE__)
+    @videos << video(@base_path+'/bicycle1.mp3', :height => 1, :width => 1)
+    @videos << video(@base_path+'/bicycle2.mp3', :height => 1, :width => 1)
+    @videos << video(@base_path+'/bicycle3.mp3', :height => 1, :width => 1)
   end
 
   def change_state new_state
@@ -44,22 +47,25 @@ Shoes.app(:title => "Business Socks", :height => 600, :width => 800, :resizeable
     @para_time.replace Time.now.strftime('%H:%M')
     case @state
       when :timing:
-      new_time = @midnight + (Time.now - @start)
-      set_timer new_time
+        new_time = @midnight + (Time.now - @start)
+        set_timer new_time
       when :schedule:
-      if @schedule.current
-        @para_description.replace strong(@schedule.current.description, :stroke=>gray), strong(@schedule.current.presenter, :stroke=>blue)
-        new_time = @midnight + @schedule.current.remaining
-        @new_stage = @schedule.current.stage(3)
-        on_stage_transition(:from => 0, :to => 1) { @videos[0].play }
-        on_stage_transition(:from => 1, :to => 2) { @videos[1].play }
-        on_stage_transition(:from => 2, :to => 0) { @videos[2].play }
-        @old_stage = @new_stage
-        set_timer new_time, colors[@new_stage]
-      else
-        clear
-        @videos[2].play
-      end
+        current = @schedule.current
+        if current
+          @para_description.replace strong(current.description, :stroke=>gray), strong(current.presenter, :stroke=>blue)
+          new_time = @midnight + current.remaining
+          @new_stage = current.stage(3)
+          unless current.transition
+            on_stage_transition(:from => 0, :to => 1) { @videos[0].play }
+            on_stage_transition(:from => 1, :to => 2) { @videos[1].play }
+          end
+          on_stage_transition(:from => 2, :to => 0) { @videos[2].play }
+          @old_stage = @new_stage
+          set_timer new_time, colors[@new_stage]
+        else
+          clear
+          @videos[2].play
+        end
     end
   end
 

@@ -1,3 +1,4 @@
-event "first event", 15.seconds, "first presenter"
-event "break", 6.seconds
-event "second event", 15.seconds, "second presenter"
+event "first event", 30.seconds, "first presenter"
+questions 15.seconds
+event "second event", 30.seconds, "second presenter"
+questions 15.seconds
